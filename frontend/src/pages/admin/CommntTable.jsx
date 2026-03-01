@@ -1,5 +1,5 @@
 import "./admin-table.css";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 import AdminSideBar from "./AdminSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -15,17 +15,25 @@ const CommentsTable = () => {
   useEffect(() => {
     dispatch(getAllComment());
   }, []);
-  // Delete Comment Handler
+  // Delete Category Handler
   const deleteCommentHandler = (commentId) => {
-    swal({
+    Swal.fire({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this comment!",
+      text: "This comment will be permanently deleted!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isOk) => {
-      if (isOk) {
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
         dispatch(deleteComment(commentId));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Comment has been deleted.",
+          icon: "success",
+        });
       }
     });
   };

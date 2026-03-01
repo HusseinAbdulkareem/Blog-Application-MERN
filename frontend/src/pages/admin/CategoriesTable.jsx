@@ -1,5 +1,5 @@
 import "./admin-table.css";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 import AdminSideBar from "./AdminSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -17,15 +17,23 @@ const CategoriesTable = () => {
   }, []);
   // Delete Category Handler
   const deleteCategoryHandler = (categoryId) => {
-    swal({
+    Swal.fire({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this category!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isOk) => {
-      if (isOk) {
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
         dispatch(deleteCategory(categoryId));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Category has been deleted.",
+          icon: "success",
+        });
       }
     });
   };

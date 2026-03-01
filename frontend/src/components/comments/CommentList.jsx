@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./commentList.css";
 import Swal from "sweetalert2";
 import UpdateCommentModal from "./UpdateCommentModal";
-import Moment from "react-moment";
+import { formatDistanceToNow } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 // import { deleteComment } from "../../redux/slices/CommentApiCall";
 import { deleteComment } from "../../redux/apiCalls/CommentApiCall";
@@ -52,10 +52,9 @@ const CommentList = ({ comments }) => {
               <span className="comment-item-username">{comment.username}</span>
             </div>
             <div className="comment-item-time">
-              <Moment fromNow ago>
-                {comment.createdAt}
-              </Moment>
-              {" ago"}
+              {formatDistanceToNow(new Date(comment.createdAt), {
+                addSuffix: true,
+              })}
             </div>
           </div>
           <p className="comment-item-text">{comment.text}</p>

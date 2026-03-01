@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../../redux/apiCalls/postCall";
-import { RotatingLines } from "react-loader-spinner";
+// import { RotatingLines } from "react-loader-spinner";
 export default function CreatePost() {
   const dispatch = useDispatch();
   const { loading, isPostCreated } = useSelector((state) => state.post);
@@ -87,17 +87,16 @@ export default function CreatePost() {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button type="submit" className="create-post-btn">
-          {loading ? (
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="46"
-              visible={true}
-            />
-          ) : (
-            "Create Post"
-          )}
+          {loading
+            ? // <RotatingLines
+              //   strokeColor="grey"
+              //   strokeWidth="5"
+              //   animationDuration="0.75"
+              //   width="46"
+              //   visible={true}
+              // />
+              "[...]"
+            : "Create Post"}
         </button>
       </form>
     </section>

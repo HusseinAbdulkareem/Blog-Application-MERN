@@ -1,6 +1,6 @@
 import "./admin-table.css";
 import { Link } from "react-router-dom";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 import AdminSideBar from "./AdminSideBar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,26 +9,27 @@ import { getAllPosts, deletePost } from "../../redux/apiCalls/postCall";
 const PostsTable = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.post);
-  // Delete Post Handler
   const deletePostHandler = (postId) => {
-    swal({
+    Swal.fire({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this post!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((isOk) => {
-      if (isOk) {
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
         dispatch(deletePost(postId));
-        swal("Poof! Your post has been deleted!", {
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your post has been deleted.",
           icon: "success",
         });
-        window.location.reload();
-      } else {
       }
     });
   };
-
   useEffect(() => {
     dispatch(getAllPosts());
   }, []);
