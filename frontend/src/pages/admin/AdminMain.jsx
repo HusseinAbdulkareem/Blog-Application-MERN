@@ -19,6 +19,7 @@ export default function AdminMain() {
 
   useEffect(() => {
     dispatch(fetchCategory());
+
     dispatch(getUsersCount());
     dispatch(getAllUsersProfile());
     dispatch(getPostCount());
